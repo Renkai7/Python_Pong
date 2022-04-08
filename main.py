@@ -7,19 +7,19 @@ screen = Screen()
 screen.setup(width=800, height=600)
 screen.bgcolor("black")
 screen.title("Pong")
-# screen.tracer(False)
+screen.tracer(0)
 
 # keystrokes
 screen.listen()
 screen.update()
-time.sleep(0.8)
+
 
 def move_up():
-    # paddle.setheading(90)
-    paddle.forward(20)
+    new_y = paddle.ycor() + 20
+    paddle.goto(paddle.xcor(), new_y)
 def move_down():
-    # paddle.setheading(270)
-    paddle.forward(-20)
+    new_y = paddle.ycor() - 20
+    paddle.goto(paddle.xcor(), new_y)
 
 screen.onkeypress(key="Up", fun=move_up)
 screen.onkeypress(key="Down", fun=move_down)
@@ -29,11 +29,12 @@ paddle = Turtle()
 paddle.shape("square")
 paddle.color("white")
 paddle.penup()
-paddle.setheading(90)
-paddle.shapesize(stretch_wid=2, stretch_len=8)
-paddle.setposition(x=350, y=0)
+paddle.shapesize(stretch_wid=5, stretch_len=1)
+paddle.goto(x=350, y=0)
 
-
+game_is_on = True
+while game_is_on:
+    screen.update()
 
 
 screen.exitonclick()
