@@ -1,6 +1,6 @@
 import time
 from turtle import Screen, Turtle
-
+from paddle import Paddle
 
 # Screen setup
 screen = Screen()
@@ -9,32 +9,32 @@ screen.bgcolor("black")
 screen.title("Pong")
 screen.tracer(0)
 
+# Paddles
+r_paddle = Paddle((350, 0))
+l_paddle = Paddle((-350, 0))
+
 # keystrokes
 screen.listen()
-screen.update()
 
+screen.onkeypress(r_paddle.move_up, "Up")
+screen.onkeypress(r_paddle.move_down, "Down")
+screen.onkeypress(l_paddle.move_up, "w")
+screen.onkeypress(l_paddle.move_down, "s")
 
-def move_up():
-    new_y = paddle.ycor() + 20
-    paddle.goto(paddle.xcor(), new_y)
-def move_down():
-    new_y = paddle.ycor() - 20
-    paddle.goto(paddle.xcor(), new_y)
+# Ball
+ball = Turtle()
+ball.shape("circle")
+ball.color("blue")
+ball.penup()
 
-screen.onkeypress(key="Up", fun=move_up)
-screen.onkeypress(key="Down", fun=move_down)
-
-# shape the paddle
-paddle = Turtle()
-paddle.shape("square")
-paddle.color("white")
-paddle.penup()
-paddle.shapesize(stretch_wid=5, stretch_len=1)
-paddle.goto(x=350, y=0)
 
 game_is_on = True
 while game_is_on:
     screen.update()
-
+    # control speed of ball
+    time.sleep(0.1)
+    # sets angle of ball and moves foward
+    ball.setheading(20)
+    ball.forward(20)
 
 screen.exitonclick()
